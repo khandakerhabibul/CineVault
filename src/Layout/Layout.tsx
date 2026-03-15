@@ -10,7 +10,8 @@ function Layout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pathname === '/') navigate(movieListFullPath);
+    if (pathname === '/' || pathname === '/CineVault')
+      navigate(movieListFullPath);
   }, [pathname]);
 
   const layoutRef = useRef<HTMLDivElement>(null);

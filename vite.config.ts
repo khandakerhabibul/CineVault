@@ -13,5 +13,5 @@ export default defineConfig({
       components: path.resolve(__dirname, 'src/components'),
     },
   },
-  base: process.env.VITE_BASE_PATH || '/',
+  base: process.env.VITE_BASE_PATH || '/CineVault',
 });
