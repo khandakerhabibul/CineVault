@@ -5,3 +5,4 @@ export const upcomingMoviesApi = () => '/movie/upcoming';
 export const searchMovieApi = () => '/search/movie';
 export const movieDetailApi = (id: string | number) => `/movie/${id}`;
 export const movieCreditsApi = (id: string | number) => `/movie/${id}/credits`;
+export const movieVideosApi = (id: string | number) => `/movie/${id}/videos`;

@@ -9,14 +9,22 @@ import { Play, Info, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import Loader from 'src/components/Loader/Loader';
 import { movieListFullPath } from '../moduleInfo';
 import WatchlistButton from 'src/components/WatchlistButton/WatchlistButton';
+import { useMovieVideosQuery } from '../query/useMovieVideosQuery';
+import VideoPlayer from 'src/components/VideoPlayer/VideoPlayer';
 
 const HeroSectionTrending = () => {
   const { data, isLoading } = useTrendingMoviesQuery();
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   const trendingMovies = data?.results.slice(0, 5) || [];
+  const currentMovieId = trendingMovies[activeIndex]?.id;
+
+  const { data: videoData } = useMovieVideosQuery({
+    id: currentMovieId || '',
+  });
 
   const slideNext = () => {
     setActiveIndex((prev) => (prev + 1) % trendingMovies.length);
@@ -30,14 +38,14 @@ const HeroSectionTrending = () => {
 
   // NOTE - Auto-switch logic, changing slide every 10 seconds
   useEffect(() => {
-    if (!trendingMovies.length) return;
+    if (!trendingMovies.length || isVideoOpen) return;
 
     const interval = setInterval(() => {
       slideNext();
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [trendingMovies.length, activeIndex]);
+  }, [trendingMovies.length, activeIndex, isVideoOpen]);
 
   useGSAP(
     () => {
@@ -147,7 +155,7 @@ const HeroSectionTrending = () => {
                 <Button
                   size='md'
                   className='group cursor-pointer'
-                  onClick={() => console.log('Watch Trailer:', movie.title)}
+                  onClick={() => setIsVideoOpen(true)}
                 >
                   <Play fill='currentColor' size={20} />
                   <span>Play Trailer</span>
@@ -204,6 +212,16 @@ const HeroSectionTrending = () => {
           />
         ))}
       </div>
+      <VideoPlayer
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoKey={
+          videoData?.results?.find(
+            (v) =>
+              v?.type === 'Trailer' && v?.site === 'YouTube' && v?.official,
+          )?.key || null
+        }
+      />
     </div>
   );
 };

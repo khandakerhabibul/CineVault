@@ -39,7 +39,7 @@ const MobileNav = ({
   return (
     <div
       ref={mobileMenuRef}
-      className='absolute top-0 left-0 w-full h-screen bg-(--bg-primary)/98 backdrop-blur-2xl md:hidden z-105 flex flex-col p-8 pt-24'
+      className='absolute top-0 left-0 w-full h-screen bg-(--bg-primary)/98 backdrop-blur-2xl min-[1020px]:hidden z-105 flex flex-col p-8 pt-24'
       style={{ visibility: isOpen ? 'visible' : 'hidden', opacity: 0 }}
     >
       {/* Mobile Search Bar */}
@@ -92,7 +92,7 @@ const MobileNav = ({
                   <User size={24} />
                 </div>
                 <div className='flex flex-col'>
-                  <span className='text-lg font-bold text-white'>
+                  <span className='text-lg font-bold text-white max-w-[150px] truncate'>
                     {userData.displayName || 'User'}
                   </span>
                   <span className='text-sm text-(--text-secondary)'>

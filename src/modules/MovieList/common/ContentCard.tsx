@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Info, Play } from 'lucide-react';
+import { Star, Play } from 'lucide-react';
 import { type Movie } from '../query/contentQuery.types';
 import Button from 'src/components/Button/Button';
 import clsx from 'clsx';
@@ -31,9 +31,12 @@ const ContentCard = ({
     <div
       className='relative group w-full aspect-2/3 overflow-hidden rounded-xl bg-(--bg-secondary) 
       border border-(--border-color) transition-all duration-500 ease-out hover:scale-110 
-      hover:z-20 hover:shadow-(--card-shadow) will-change-transform'
+      hover:z-20 hover:shadow-(--card-shadow) will-change-transform cursor-pointer'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => {
+        navigate(`${movieListFullPath}/${content.id}`);
+      }}
     >
       {/* Poster Image */}
       <img
@@ -111,21 +114,9 @@ const ContentCard = ({
               <WatchlistButton
                 movieId={content.id}
                 variant='icon'
+                size={variant === 'movies-list' ? 16 : 20}
                 className={variant === 'movies-list' ? 'w-8 h-8' : 'w-10 h-10'}
               />
-
-              {variant === 'landing-page' && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    navigate(`${movieListFullPath}/${content.id}`);
-                  }}
-                  className='w-10 h-10 shrink-0 flex items-center justify-center rounded-lg bg-white/10 border hover:bg-white/20 border-white/20 text-white transition-all duration-300 cursor-pointer'
-                >
-                  <Info size={16} />
-                </button>
-              )}
             </div>
           </div>
         </div>

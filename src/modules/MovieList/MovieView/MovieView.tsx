@@ -9,6 +9,9 @@ import Spinner from 'src/components/Spinner/Spinner';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import WatchlistButton from 'src/components/WatchlistButton/WatchlistButton';
+import { useMovieVideosQuery } from '../query/useMovieVideosQuery';
+import VideoPlayer from 'src/components/VideoPlayer/VideoPlayer';
+import { useState } from 'react';
 
 const MovieView = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,6 +25,11 @@ const MovieView = () => {
   const { data: credits, isLoading: isCreditsLoading } = useMovieCreditsQuery({
     id: id || '',
   });
+  const { data: videoData } = useMovieVideosQuery({
+    id: id || '',
+  });
+
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useGSAP(() => {
     if (!isMovieLoading && movie) {
@@ -125,6 +133,7 @@ const MovieView = () => {
                 variant='primary'
                 fullWidth
                 className='h-14 text-lg font-bold shadow-(--glow-primary)'
+                onClick={() => setIsVideoOpen(true)}
               >
                 <Play fill='currentColor' />
                 <span>Watch Trailer</span>
@@ -251,6 +260,17 @@ const MovieView = () => {
           </div>
         )}
       </div>
+
+      <VideoPlayer
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoKey={
+          videoData?.results?.find(
+            (v) =>
+              v?.type === 'Trailer' && v?.site === 'YouTube' && v?.official,
+          )?.key || null
+        }
+      />
     </div>
   );
 };

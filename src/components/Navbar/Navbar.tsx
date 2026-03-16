@@ -144,7 +144,7 @@ const Navbar = () => {
         {/* Mobile Hamburger Header */}
         <button
           onClick={toggleMenu}
-          className='md:hidden p-2 text-white hover:text-(--color-primary) transition-colors z-110 cursor-pointer'
+          className='min-[1020px]:hidden p-2 text-white hover:text-(--color-primary) transition-colors z-110 cursor-pointer'
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>

@@ -84,7 +84,6 @@ const WatchlistButton = ({
           : 'bg-white/10 border-white/20 text-white hover:bg-white/20',
         className,
       )}
-      style={{ width: size * 2, height: size * 2 }}
     >
       <Heart size={size} fill={watchlisted ? 'currentColor' : 'none'} />
     </button>

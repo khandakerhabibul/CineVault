@@ -34,7 +34,7 @@ const DesktopNav = ({
   currentPath,
 }: DesktopNavProps) => {
   return (
-    <div className='hidden md:flex items-center gap-8'>
+    <div className='hidden min-[1020px]:flex items-center gap-8'>
       {navLinks.map((link) => (
         <Link
           key={link.path}
@@ -72,7 +72,9 @@ const DesktopNav = ({
               <div className='w-8 h-8 rounded-full bg-(--color-primary)/20 flex items-center justify-center text-(--color-primary)'>
                 <User size={16} />
               </div>
-              <span>{userData.displayName || 'User'}</span>
+              <span className='max-w-[150px] truncate'>
+                {userData.displayName || 'User'}
+              </span>
             </div>
           </Link>
           <button

@@ -38,3 +38,17 @@ export interface MovieCreditsResp {
   id: number;
   cast: Cast[];
 }
+
+export interface Video {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+  type: string;
+  official: boolean;
+}
+
+export interface MovieVideosResp {
+  id: number;
+  results: Video[];
+}
