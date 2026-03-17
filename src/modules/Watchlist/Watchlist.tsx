@@ -17,13 +17,6 @@ function Watchlist() {
   const { data: movies, isLoading: isMoviesLoading } =
     useWatchlistMoviesQuery(watchlistIds);
 
-  console.log({
-    isWatchlistLoading,
-    watchlistIds,
-    watchlistIdsLenth: watchlistIds.length > 0,
-    isMoviesLoading,
-  });
-
   const isLoading =
     isWatchlistLoading || (watchlistIds.length > 0 && isMoviesLoading);
 

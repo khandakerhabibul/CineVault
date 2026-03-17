@@ -104,7 +104,13 @@ const Navbar = () => {
           icon: <Heart size={18} />,
         },
       ]
-    : [];
+    : [
+        {
+          name: 'All Movies',
+          path: allMoviesListPathFull,
+          icon: <Film size={18} />,
+        },
+      ];
 
   const handleLogoutClick = async () => {
     await handleLogout();
